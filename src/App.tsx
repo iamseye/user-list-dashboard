@@ -1,9 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-
-const API_URL = 'http://localhost:8099'
+import React from "react";
+import styled from "styled-components";
+import { useUsers } from "./hooks/useUsers";
 
 function App() {
+  const { users, isLoading, error } = useUsers();
+  console.log(users);
+
   return (
     <div className="App">
       <h1>Planned Test</h1>

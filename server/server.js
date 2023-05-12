@@ -1,6 +1,6 @@
-const fastify = require('fastify');
-const faker = require('faker');
-const cors = require('fastify-cors')
+const fastify = require("fastify");
+const faker = require("faker");
+const cors = require("fastify-cors");
 
 const PORT = 8099;
 const server = fastify({ logger: true });
@@ -16,7 +16,7 @@ function createUser(minAge, maxAge) {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
     },
-  }
+  };
 }
 
 function createUsers(minAge, maxAge, limit) {
@@ -26,25 +26,26 @@ function createUsers(minAge, maxAge, limit) {
     users.push(createUser(minAge, maxAge));
   }
 
-  const duplicatedUser = createUser(minAge, maxAge)
-  duplicatedUser.name.firstName = 'Bob'
-  duplicatedUser.name.lastName = 'Bissonnette'
-  users.push(duplicatedUser)
+  const duplicatedUser = createUser(minAge, maxAge);
+  duplicatedUser.name.firstName = "Bob";
+  duplicatedUser.name.lastName = "Bissonnette";
+  users.push(duplicatedUser);
 
   return users;
 }
 
-server.get('/users/kids', async () => {
+server.get("/users/kids", async () => {
   const users = createUsers(0, 18, 15);
   return { data: users };
 });
 
-server.get('/users/adults', async () => {
+server.get("/users/adults", async () => {
+  console.log("call kids");
   const users = createUsers(19, 60, 15);
   return { data: users };
 });
 
-server.get('/users/seniors', async () => {
+server.get("/users/seniors", async () => {
   const users = createUsers(61, 100, 15);
   return users;
 });
