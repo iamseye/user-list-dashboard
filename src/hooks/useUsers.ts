@@ -5,7 +5,7 @@ interface userApiResponse {
   data: User[];
 }
 
-const getUsername = (user: User): string =>
+export const getUsername = (user: User): string =>
   `${user.name.firstName} ${user.name.lastName}`;
 
 const defaultUserSorting = (a: User, b: User) => {

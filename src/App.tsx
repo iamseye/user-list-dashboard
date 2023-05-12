@@ -1,24 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { useUsers } from "./hooks/useUsers";
+import Header from "./components/Header";
+import UserPage from "./components/UserPage";
+import { PageContainer } from "./components/Page.style";
+
+const AppContainer = styled.div`
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 function App() {
-  const { users, isLoading, error } = useUsers();
-  console.log(users);
-
   return (
-    <div className="App">
-      <h1>Planned Test</h1>
-      <div>
-        <button type="button">Retrieve Users</button>
-      </div>
-      <div>
-        <h2>Users</h2>
-        min: <input name="minAge" value="0" type="number" />
-        max: <input name="maxAge" value="100" type="number" />
-        <button type="button">Filter by age</button>
-      </div>
-    </div>
+    <AppContainer className="App">
+      <Header />
+      <PageContainer>
+        <UserPage />
+      </PageContainer>
+    </AppContainer>
   );
 }
 
