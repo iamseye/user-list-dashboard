@@ -3,7 +3,7 @@ interface nameType {
   lastName: string;
 }
 
-export interface User {
+export interface UserType {
   age: number;
   country: string;
   email: string;

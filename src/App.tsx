@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./components/Header";
-import UserPage from "./components/UserPage";
-import { PageContainer } from "./components/Page.style";
+import Header from "./components/header/Header.component";
+import UserPage from "./components/page/UserPage.component";
+import { PageContainer } from "./components/page/Page.style";
 
 const AppContainer = styled.div`
   padding-top: 0.5rem;

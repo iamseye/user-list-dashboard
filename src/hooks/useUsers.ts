@@ -1,14 +1,14 @@
-import { User } from "../types/user.type";
+import { UserType } from "../types/user.type";
 import { useFetch, API_URL } from "./useFetch";
 
 interface userApiResponse {
-  data: User[];
+  data: UserType[];
 }
 
-export const getUsername = (user: User): string =>
+export const getUsername = (user: UserType): string =>
   `${user.name.firstName} ${user.name.lastName}`;
 
-const defaultUserSorting = (a: User, b: User) => {
+const defaultUserSorting = (a: UserType, b: UserType) => {
   const nameA = getUsername(a).toLowerCase();
   const nameB = getUsername(b).toLowerCase();
 
@@ -55,6 +55,11 @@ export const useUsers = (searchProps: useUsersType = null) => {
 
   const users = [...kidUsers, ...adultUsers, ...seniorUsers];
 
+  const isLoading =
+    kidsFetchIsLoading || adultFetchIsLoading || seniorFetchIsLoading;
+
+  const error = kidsFetchError || adultFetchError || seniorFetchError;
+
   if (!sort && !orderBy) {
     users.sort(defaultUserSorting);
   }
@@ -62,24 +67,29 @@ export const useUsers = (searchProps: useUsersType = null) => {
   // sort by individual name or age
 
   if (maxAge || minAge) {
-    users.filter((user) => {
+    const filteredUsers = users.filter((user) => {
       if (maxAge && minAge) {
-        return user.age < maxAge && user.age >= minAge;
+        return user.age <= maxAge && user.age >= minAge;
       }
       if (maxAge) {
-        return user.age < maxAge;
+        return user.age <= maxAge;
       }
 
       if (minAge) {
         return user.age >= minAge;
       }
     });
+
+    return {
+      users: filteredUsers,
+      isLoading,
+      error,
+    };
   }
 
   return {
     users,
-    isLoading:
-      kidsFetchIsLoading || adultFetchIsLoading || seniorFetchIsLoading,
-    error: kidsFetchError || adultFetchError || seniorFetchError,
+    isLoading,
+    error,
   };
 };
