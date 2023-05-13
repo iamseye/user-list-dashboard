@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   vertical-align: middle;
-  padding: 4rem;
+  padding: 4rem 0;
   min-height: 80vh;
   display: flex;
   justify-content: space-evenly;
